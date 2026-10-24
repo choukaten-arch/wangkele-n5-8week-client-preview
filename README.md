@@ -2,6 +2,8 @@
 
 這是可獨立部署到 GitHub Pages 的純靜態功能預覽。用途是讓客戶驗收資訊架構、視覺層級、響應式排版與基本交互。
 
+公開測試網址：<https://choukaten-arch.github.io/wangkele-n5-8week-client-preview/>
+
 ## 安全邊界
 
 - 全部畫面與數值都是合成資料。
