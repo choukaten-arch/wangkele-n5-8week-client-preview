@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="八週 N5 陪跑評測平台靜態 UI 驗收版。所有畫面與資料皆為合成示意。" />
+    <title>八週 N5 陪跑｜靜態 UI 驗收版</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23bf4b36'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-size='38' fill='white'%3E八%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要內容</a>
+
+    <header class="topbar">
+      <a class="wordmark" href="#overview" aria-label="八週 N5 陪跑首頁">
+        <span class="wordmark-mark" aria-hidden="true">八</span>
+        <span>
+          <strong>N5 陪跑評測</strong>
+          <small>8-WEEK LEARNING JOURNEY</small>
+        </span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span aria-hidden="true">+</span> 功能選單
+      </button>
+      <nav id="primary-nav" class="primary-nav" aria-label="主要功能">
+        <a href="#overview" data-route="overview">週進度</a>
+        <a href="#lessons" data-route="lessons">25 課索引</a>
+        <a href="#weekly" data-route="weekly">合成週測</a>
+        <a href="#cat" data-route="cat">CAT 診斷</a>
+        <a href="#inbody" data-route="inbody">學習 InBody</a>
+        <a href="#admin" data-route="admin">後台預覽</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="overview" class="hero page-section" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">CUSTOMER ACCEPTANCE PREVIEW</p>
+          <h1 id="hero-title">八週看得見進度，<br /><em>二十五課</em>有路徑。</h1>
+          <p class="hero-lead">從每週測驗、CAT 診斷到學習歷程，將 N5 陪跑過程整理成學員與管理者都看得懂的一條線。</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#weekly">開始體驗週測</a>
+            <a class="button button-quiet" href="#lessons">預覽 25 課</a>
+          </div>
+        </div>
+        <aside class="notice-card" aria-label="版本重要說明">
+          <span class="notice-number">00</span>
+          <p class="kicker">驗收邊界</p>
+          <h2>靜態 UI 驗收版</h2>
+          <ul class="notice-list">
+            <li>所有畫面資料為合成資料</li>
+            <li>不含真實題庫與學員個資</li>
+            <li>完整登入與資料保存需獨立 staging</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="status-strip" aria-label="進度摘要">
+        <div><strong>08</strong><span>週陪跑</span></div>
+        <div><strong>25</strong><span>課索引</span></div>
+        <div><strong>08+1</strong><span>測驗節點</span></div>
+        <div><strong>UI</strong><span>功能驗收</span></div>
+      </section>
+
+      <section class="page-section section-pad" aria-labelledby="journey-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">WEEKLY PATH</p>
+            <h2 id="journey-title">先看這週，再看長期。</h2>
+          </div>
+          <p>每週將課程、練習與測驗放在同一張進度圖，期末再回收學習成果。</p>
+        </div>
+        <div id="week-grid" class="week-grid" aria-label="八週學習進度"></div>
+        <article class="final-card">
+          <div>
+            <p class="kicker">FINAL CHECK</p>
+            <h3>期末綜合測驗</h3>
+            <p>50 題規劃・全程能力分布・N4 後續建議</p>
+          </div>
+          <span class="final-mark" aria-hidden="true">50</span>
+        </article>
+      </section>
+
+      <section id="lessons" class="page-section section-pad section-tint" aria-labelledby="lessons-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LESSON INDEX</p>
+            <h2 id="lessons-title">25 課，先預覽再開始。</h2>
+          </div>
+          <p>分課頁可先展開本課句型摘要；本版僅以合成標籤表示版型與交互。</p>
+        </div>
+        <div id="lesson-grid" class="lesson-grid"></div>
+      </section>
+
+      <section id="weekly" class="page-section section-pad" aria-labelledby="weekly-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">WEEKLY QUIZ DEMO</p>
+            <h2 id="weekly-title">一道題，看完整作答節奏。</h2>
+          </div>
+          <p>此處只驗收選項、進度與送出回饋，不含真實題文、正解或解析。</p>
+        </div>
+        <div class="quiz-shell">
+          <div class="quiz-meta">
+            <span>第 03 週・合成示意</span>
+            <span>第 1 / 20 題</span>
+          </div>
+          <div class="progress-track" aria-label="模擬測驗進度 5%"><span style="width: 5%"></span></div>
+          <fieldset class="quiz-question">
+            <legend><span>01</span>請選擇最符合本題「合成示意條件」的選項。</legend>
+            <label><input type="radio" name="demo-answer" value="A" /><span>A</span>選項 A（合成內容）</label>
+            <label><input type="radio" name="demo-answer" value="B" /><span>B</span>選項 B（合成內容）</label>
+            <label><input type="radio" name="demo-answer" value="C" /><span>C</span>選項 C（合成內容）</label>
+            <label><input type="radio" name="demo-answer" value="D" /><span>D</span>選項 D（合成內容）</label>
+          </fieldset>
+          <div class="quiz-footer">
+            <p id="quiz-feedback" role="status">請先選擇一個選項。</p>
+            <button id="quiz-submit" class="button button-primary" type="button" disabled>確認作答</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="cat" class="page-section section-pad section-dark" aria-labelledby="cat-title">
+        <div class="section-heading inverse">
+          <div>
+            <p class="eyebrow">ADAPTIVE DIAGNOSTIC</p>
+            <h2 id="cat-title">CAT 診斷，看的是下一步。</h2>
+          </div>
+          <p>切換學習狀態，預覽系統如何將合成作答資料轉為建議。</p>
+        </div>
+        <div class="cat-layout">
+          <div class="cat-controls" role="group" aria-label="CAT 合成狀態切換">
+            <button type="button" class="cat-switch is-active" data-profile="steady" aria-pressed="true">穩定前進</button>
+            <button type="button" class="cat-switch" data-profile="review" aria-pressed="false">需再複習</button>
+            <button type="button" class="cat-switch" data-profile="ready" aria-pressed="false">進階準備</button>
+          </div>
+          <article class="cat-result" aria-live="polite">
+            <div class="cat-score">
+              <span id="cat-score">72</span><small>/ 100</small>
+            </div>
+            <div>
+              <p class="kicker" id="cat-label">合成結果／穩定前進</p>
+              <h3 id="cat-headline">基礎已成形，保持當週練習節奏。</h3>
+              <p id="cat-copy">建議完成本週錯題回看，並依原進度進入下一週。本數值僅作 UI 驗收。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="inbody" class="page-section section-pad" aria-labelledby="inbody-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LEARNING INBODY</p>
+            <h2 id="inbody-title">學習 InBody，不只有一個分數。</h2>
+          </div>
+          <p>以合成資料示範學員可見的累計時數、進度、穩定度與建議。</p>
+        </div>
+        <div class="inbody-grid">
+          <article class="inbody-primary">
+            <p class="kicker">學習節奏</p>
+            <div class="ring" style="--value: 68"><span>68<small>%</small></span></div>
+            <h3>穩定累積中</h3>
+            <p>近 7 日有 4 天完成學習紀錄。</p>
+          </article>
+          <div class="metric-list">
+            <article><span>累計練習</span><strong>06:42</strong><small>小時／合成資料</small></article>
+            <article><span>課程進度</span><strong>09 / 25</strong><small>已完成課次</small></article>
+            <article><span>本週完成</span><strong>03 / 04</strong><small>學習節點</small></article>
+            <article><span>最近登入</span><strong>2 天前</strong><small>合成時間</small></article>
+          </div>
+          <article class="coach-note">
+            <span class="note-index">01</span>
+            <p class="kicker">下一步建議</p>
+            <h3>先完成當週回看，再解鎖下一課。</h3>
+            <p>合成建議將來可由測驗、登入與練習時數共同產生。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="admin" class="page-section section-pad section-tint" aria-labelledby="admin-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">READ-ONLY ADMIN PREVIEW</p>
+            <h2 id="admin-title">管理後台，先看狀態再行動。</h2>
+          </div>
+          <p>此版僅展示資訊層級，不提供帳號新增、刪除、匯入或資料寫入。</p>
+        </div>
+        <div class="admin-shell" aria-label="管理後台合成資料預覽">
+          <div class="admin-toolbar">
+            <div>
+              <strong>學員進度摘要</strong>
+              <span>更新時間：合成示意</span>
+            </div>
+            <span class="readonly-chip">唯讀模式</span>
+          </div>
+          <div class="admin-stats">
+            <article><span>合成學員</span><strong>24</strong></article>
+            <article><span>週測完成率</span><strong>79%</strong></article>
+            <article><span>本週需關懷</span><strong>04</strong></article>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <caption class="sr-only">合成學員學習狀態</caption>
+              <thead><tr><th scope="col">學員</th><th scope="col">當前週次</th><th scope="col">練習時數</th><th scope="col">最近活動</th><th scope="col">狀態</th></tr></thead>
+              <tbody>
+                <tr><td>示範學員 A001</td><td>Week 3</td><td>06:42</td><td>合成時間 A</td><td><span class="status good">穩定</span></td></tr>
+                <tr><td>示範學員 A002</td><td>Week 2</td><td>04:18</td><td>合成時間 B</td><td><span class="status watch">待關懷</span></td></tr>
+                <tr><td>示範學員 A003</td><td>Week 3</td><td>07:05</td><td>合成時間 C</td><td><span class="status good">穩定</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing page-section" aria-labelledby="closing-title">
+        <p class="eyebrow">NEXT GATE</p>
+        <h2 id="closing-title">這一版驗收流程與視覺。<br />下一階段，才接入真實系統。</h2>
+        <p>如需測試完整帳號、密碼、題庫、計分與學習資料保存，請使用獨立 staging 環境。</p>
+        <a class="button button-primary" href="#overview">回到頁首</a>
+      </section>
+    </main>
+
+    <footer>
+      <span>八週 N5 陪跑評測・靜態 UI 驗收版</span>
+      <span>所有資料為合成資料</span>
+    </footer>
+  </body>
+</html>
