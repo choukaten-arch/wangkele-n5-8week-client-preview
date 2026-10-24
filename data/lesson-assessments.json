@@ -1,0 +1,46 @@
+{
+  "schema_version": "n5w8-lesson-assessments-public-v1",
+  "title": "直達車 L1–L25 每課測驗",
+  "subtitle": "每個句型各一題知識、理解與應用",
+  "mode": "lesson_pilot",
+  "totals": {
+    "lesson_count": 25,
+    "grammar_pattern_count": 97,
+    "question_count": 291,
+    "released_question_count": 231,
+    "trial_question_count": 60
+  },
+  "result_policy": {
+    "feedback_timing": "completion_only",
+    "cat_evidence": false,
+    "jlpt_prediction": false
+  },
+  "lessons": [
+    { "id": "n5w8_lesson_01", "lesson_number": 1, "label": "第 1 課", "lesson_label": "L1", "pattern_count": 6, "question_count": 18, "duration_minutes": 25, "released_question_count": 9, "trial_question_count": 9, "status": "mixed_pilot" },
+    { "id": "n5w8_lesson_02", "lesson_number": 2, "label": "第 2 課", "lesson_label": "L2", "pattern_count": 5, "question_count": 15, "duration_minutes": 20, "released_question_count": 0, "trial_question_count": 15, "status": "trial_only" },
+    { "id": "n5w8_lesson_03", "lesson_number": 3, "label": "第 3 課", "lesson_label": "L3", "pattern_count": 4, "question_count": 12, "duration_minutes": 15, "released_question_count": 3, "trial_question_count": 9, "status": "mixed_pilot" },
+    { "id": "n5w8_lesson_04", "lesson_number": 4, "label": "第 4 課", "lesson_label": "L4", "pattern_count": 4, "question_count": 12, "duration_minutes": 15, "released_question_count": 12, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_05", "lesson_number": 5, "label": "第 5 課", "lesson_label": "L5", "pattern_count": 4, "question_count": 12, "duration_minutes": 15, "released_question_count": 12, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_06", "lesson_number": 6, "label": "第 6 課", "lesson_label": "L6", "pattern_count": 4, "question_count": 12, "duration_minutes": 15, "released_question_count": 12, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_07", "lesson_number": 7, "label": "第 7 課", "lesson_label": "L7", "pattern_count": 4, "question_count": 12, "duration_minutes": 15, "released_question_count": 9, "trial_question_count": 3, "status": "mixed_pilot" },
+    { "id": "n5w8_lesson_08", "lesson_number": 8, "label": "第 8 課", "lesson_label": "L8", "pattern_count": 6, "question_count": 18, "duration_minutes": 25, "released_question_count": 15, "trial_question_count": 3, "status": "mixed_pilot" },
+    { "id": "n5w8_lesson_09", "lesson_number": 9, "label": "第 9 課", "lesson_label": "L9", "pattern_count": 5, "question_count": 15, "duration_minutes": 20, "released_question_count": 12, "trial_question_count": 3, "status": "mixed_pilot" },
+    { "id": "n5w8_lesson_10", "lesson_number": 10, "label": "第 10 課", "lesson_label": "L10", "pattern_count": 5, "question_count": 15, "duration_minutes": 20, "released_question_count": 15, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_11", "lesson_number": 11, "label": "第 11 課", "lesson_label": "L11", "pattern_count": 3, "question_count": 9, "duration_minutes": 15, "released_question_count": 9, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_12", "lesson_number": 12, "label": "第 12 課", "lesson_label": "L12", "pattern_count": 3, "question_count": 9, "duration_minutes": 15, "released_question_count": 9, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_13", "lesson_number": 13, "label": "第 13 課", "lesson_label": "L13", "pattern_count": 3, "question_count": 9, "duration_minutes": 15, "released_question_count": 9, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_14", "lesson_number": 14, "label": "第 14 課", "lesson_label": "L14", "pattern_count": 3, "question_count": 9, "duration_minutes": 15, "released_question_count": 6, "trial_question_count": 3, "status": "mixed_pilot" },
+    { "id": "n5w8_lesson_15", "lesson_number": 15, "label": "第 15 課", "lesson_label": "L15", "pattern_count": 4, "question_count": 12, "duration_minutes": 15, "released_question_count": 12, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_16", "lesson_number": 16, "label": "第 16 課", "lesson_label": "L16", "pattern_count": 5, "question_count": 15, "duration_minutes": 20, "released_question_count": 15, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_17", "lesson_number": 17, "label": "第 17 課", "lesson_label": "L17", "pattern_count": 4, "question_count": 12, "duration_minutes": 15, "released_question_count": 9, "trial_question_count": 3, "status": "mixed_pilot" },
+    { "id": "n5w8_lesson_18", "lesson_number": 18, "label": "第 18 課", "lesson_label": "L18", "pattern_count": 3, "question_count": 9, "duration_minutes": 15, "released_question_count": 9, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_19", "lesson_number": 19, "label": "第 19 課", "lesson_label": "L19", "pattern_count": 3, "question_count": 9, "duration_minutes": 15, "released_question_count": 9, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_20", "lesson_number": 20, "label": "第 20 課", "lesson_label": "L20", "pattern_count": 4, "question_count": 12, "duration_minutes": 15, "released_question_count": 0, "trial_question_count": 12, "status": "trial_only" },
+    { "id": "n5w8_lesson_21", "lesson_number": 21, "label": "第 21 課", "lesson_label": "L21", "pattern_count": 3, "question_count": 9, "duration_minutes": 15, "released_question_count": 9, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_22", "lesson_number": 22, "label": "第 22 課", "lesson_label": "L22", "pattern_count": 4, "question_count": 12, "duration_minutes": 15, "released_question_count": 12, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_23", "lesson_number": 23, "label": "第 23 課", "lesson_label": "L23", "pattern_count": 2, "question_count": 6, "duration_minutes": 10, "released_question_count": 6, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_24", "lesson_number": 24, "label": "第 24 課", "lesson_label": "L24", "pattern_count": 4, "question_count": 12, "duration_minutes": 15, "released_question_count": 12, "trial_question_count": 0, "status": "released" },
+    { "id": "n5w8_lesson_25", "lesson_number": 25, "label": "第 25 課", "lesson_label": "L25", "pattern_count": 2, "question_count": 6, "duration_minutes": 10, "released_question_count": 6, "trial_question_count": 0, "status": "released" }
+  ],
+  "disclaimer": "每課測驗為本機試行版；含試行題的課次不會將結果寫入 CAT 精熟度診斷，也不代表 JLPT 合格判定。"
+}

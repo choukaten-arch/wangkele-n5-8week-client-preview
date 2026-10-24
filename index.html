@@ -1,229 +1,159 @@
 <!doctype html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="八週 N5 陪跑評測平台靜態 UI 驗收版。所有畫面與資料皆為合成示意。" />
-    <title>八週 N5 陪跑｜靜態 UI 驗收版</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23bf4b36'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-size='38' fill='white'%3E八%3C/text%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="./app.js" defer></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main">跳到主要內容</a>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="八週陪跑 N5 評測平台：每週 20 題、直達車第 1～25 課、CAT 精熟度診斷與期末測驗。">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#f3eee4">
+  <title>王可樂日語・八週陪跑 N5｜建置預覽</title>
+  <link rel="icon" href="./assets/brand/wangkele-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/styles.css?v=20261024-10">
+  <link rel="stylesheet" href="./assets/japanese-minimal.css?v=20261024-10">
+</head>
+<body data-page="home">
+  <a class="skip-link" href="#main">跳到主要內容</a>
+  <div class="preview-ribbon" role="status">
+    <span>LOCAL QA</span>
+    <p><strong>安全建置預覽</strong>　25 課逐課測驗・本機 CAT・不蒐集個資・未部署</p>
+  </div>
 
-    <header class="topbar">
-      <a class="wordmark" href="#overview" aria-label="八週 N5 陪跑首頁">
-        <span class="wordmark-mark" aria-hidden="true">八</span>
-        <span>
-          <strong>N5 陪跑評測</strong>
-          <small>8-WEEK LEARNING JOURNEY</small>
-        </span>
-      </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
-        <span aria-hidden="true">+</span> 功能選單
+  <header class="site-header">
+    <a class="wordmark" href="./" aria-label="王可樂日語八週陪跑 N5 首頁">
+      <img class="wordmark-logo" src="./assets/brand/wangkele-logo.svg" width="180" height="100" alt="王可樂日語">
+      <span class="program-lockup"><b>N5 八週陪跑</b><small>直達車 01–25 課</small></span>
+    </a>
+
+    <nav id="primaryNav" class="primary-nav" aria-label="主要選單">
+      <details class="nav-disclosure nav-weeks">
+        <summary>每週測驗 <span aria-hidden="true">⌄</span></summary>
+        <div class="nav-popover nav-week-popover">
+          <a class="nav-overview-link" href="#weekly-tests"><b>八週測驗總覽</b><small>每週 20 題・期末 50 題</small></a>
+          <div class="nav-week-list" aria-label="週次測驗快速連結">
+            <a href="./assessment/?id=n5w8_week_01"><b>W01</b><span>L1–L3</span><small>可預覽</small></a>
+            <a href="./assessment/?id=n5w8_week_02"><b>W02</b><span>L4–L6</span><small>規劃中</small></a>
+            <a href="./assessment/?id=n5w8_week_03"><b>W03</b><span>L7–L9</span><small>規劃中</small></a>
+            <a href="./assessment/?id=n5w8_week_04"><b>W04</b><span>L10–L12</span><small>規劃中</small></a>
+            <a href="./assessment/?id=n5w8_week_05"><b>W05</b><span>L13–L15</span><small>規劃中</small></a>
+            <a href="./assessment/?id=n5w8_week_06"><b>W06</b><span>L16–L18</span><small>規劃中</small></a>
+            <a href="./assessment/?id=n5w8_week_07"><b>W07</b><span>L19–L21</span><small>規劃中</small></a>
+            <a href="./assessment/?id=n5w8_week_08"><b>W08</b><span>L22–L25</span><small>規劃中</small></a>
+            <a class="nav-final-link" href="./assessment/?id=n5w8_final"><b>FINAL</b><span>L1–L25</span><small>規劃中</small></a>
+          </div>
+        </div>
+      </details>
+      <a href="./lessons/">逐課練習</a>
+      <a href="./diagnostic/">CAT 診斷</a>
+      <a href="./learner/">學習 InBody</a>
+    </nav>
+
+    <div class="header-meta">
+      <span class="header-date">預計 12/1 開始・年份待確認</span>
+      <div class="learner-session-control" aria-label="學員登入狀態">
+        <span>已登入・<b data-learner-name>學員</b></span>
+        <button type="button" data-auth-logout>登出</button>
+      </div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primaryNav">
+        <span>選單</span><i aria-hidden="true"></i>
       </button>
-      <nav id="primary-nav" class="primary-nav" aria-label="主要功能">
-        <a href="#overview" data-route="overview">週進度</a>
-        <a href="#lessons" data-route="lessons">25 課索引</a>
-        <a href="#weekly" data-route="weekly">合成週測</a>
-        <a href="#cat" data-route="cat">CAT 診斷</a>
-        <a href="#inbody" data-route="inbody">學習 InBody</a>
-        <a href="#admin" data-route="admin">後台預覽</a>
-      </nav>
-    </header>
+    </div>
+  </header>
 
-    <main id="main">
-      <section id="overview" class="hero page-section" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow">CUSTOMER ACCEPTANCE PREVIEW</p>
-          <h1 id="hero-title">八週看得見進度，<br /><em>二十五課</em>有路徑。</h1>
-          <p class="hero-lead">從每週測驗、CAT 診斷到學習歷程，將 N5 陪跑過程整理成學員與管理者都看得懂的一條線。</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#weekly">開始體驗週測</a>
-            <a class="button button-quiet" href="#lessons">預覽 25 課</a>
-          </div>
+  <main id="main">
+    <section class="hero shell" aria-labelledby="homeTitle">
+      <div class="hero-copy">
+        <p class="eyebrow">N5 八週陪跑・每週測驗・LESSON 01–25</p>
+        <h1 id="homeTitle">先做本週 20 題，<br><span>確認這週真的學會了</span>。</h1>
+        <p class="hero-lead">每週用 20 題確認當週進度；第 2 週起加入 4～5 題螺旋複習，八週後再用 50 題期末測驗整合第 1～25 課。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="./assessment/?id=n5w8_week_01">預覽第 1 週測驗 <span aria-hidden="true">→</span></a>
+          <a class="button ghost" href="#weekly-tests">選擇其他週次</a>
         </div>
-        <aside class="notice-card" aria-label="版本重要說明">
-          <span class="notice-number">00</span>
-          <p class="kicker">驗收邊界</p>
-          <h2>靜態 UI 驗收版</h2>
-          <ul class="notice-list">
-            <li>所有畫面資料為合成資料</li>
-            <li>不含真實題庫與學員個資</li>
-            <li>完整登入與資料保存需獨立 staging</li>
-          </ul>
-        </aside>
-      </section>
+        <p class="micro-copy">目前第 1 週提供流程預覽；第 2～8 週與期末測驗仍標示為規劃中。</p>
+      </div>
 
-      <section class="status-strip" aria-label="進度摘要">
-        <div><strong>08</strong><span>週陪跑</span></div>
-        <div><strong>25</strong><span>課索引</span></div>
-        <div><strong>08+1</strong><span>測驗節點</span></div>
-        <div><strong>UI</strong><span>功能驗收</span></div>
-      </section>
+      <div class="hero-visual" aria-label="王可樂日語初級 N5 課程與八週週測摘要">
+        <figure class="n5-visual-card">
+          <img src="./assets/brand/n5-course-visual.jpg" width="1800" height="1440" alt="王可樂日語初級 N5 課程主視覺，涵蓋第 1 至 25 課">
+          <figcaption>
+            <span>8 WEEK RUNNER</span>
+            <b>每週 20 題・期末 50 題</b>
+          </figcaption>
+        </figure>
+        <div class="floating-note note-a"><b>20</b><span>每週題數</span></div>
+        <div class="floating-note note-b"><b>8</b><span>週測進度</span></div>
+      </div>
+    </section>
 
-      <section class="page-section section-pad" aria-labelledby="journey-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">WEEKLY PATH</p>
-            <h2 id="journey-title">先看這週，再看長期。</h2>
-          </div>
-          <p>每週將課程、練習與測驗放在同一張進度圖，期末再回收學習成果。</p>
-        </div>
-        <div id="week-grid" class="week-grid" aria-label="八週學習進度"></div>
-        <article class="final-card">
-          <div>
-            <p class="kicker">FINAL CHECK</p>
-            <h3>期末綜合測驗</h3>
-            <p>50 題規劃・全程能力分布・N4 後續建議</p>
-          </div>
-          <span class="final-mark" aria-hidden="true">50</span>
-        </article>
-      </section>
+    <section id="weekly-tests" class="roadmap weekly-focus shell" aria-labelledby="weeklyTitle">
+      <div class="section-heading">
+        <div><p class="eyebrow">WEEKLY ASSESSMENTS</p><h2 id="weeklyTitle">選擇這一週的測驗</h2></div>
+        <p>每週 20 題，以當週內容為主；第二週起加入 4～5 題螺旋複習。卡片會清楚標示目前可預覽或仍在規劃。</p>
+      </div>
+      <div id="assessmentGrid" class="assessment-roadmap" aria-live="polite" aria-busy="true">
+        <p class="loading-state">正在載入八週安排…</p>
+      </div>
+    </section>
 
-      <section id="lessons" class="page-section section-pad section-tint" aria-labelledby="lessons-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">LESSON INDEX</p>
-            <h2 id="lessons-title">25 課，先預覽再開始。</h2>
-          </div>
-          <p>分課頁可先展開本課句型摘要；本版僅以合成標籤表示版型與交互。</p>
-        </div>
-        <div id="lesson-grid" class="lesson-grid"></div>
-      </section>
+    <section class="metrics shell" aria-label="八週測驗摘要">
+      <article><b>8</b><span>每週測驗</span><small>依序涵蓋 L1–L25</small></article>
+      <article><b>20</b><span>每週題數</span><small>當週內容＋螺旋複習</small></article>
+      <article><b>50</b><span>期末測驗</span><small>八週內容綜合規劃</small></article>
+      <article><b>25</b><span>涵蓋課次</span><small>直達車 L1–L25</small></article>
+    </section>
 
-      <section id="weekly" class="page-section section-pad" aria-labelledby="weekly-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">WEEKLY QUIZ DEMO</p>
-            <h2 id="weekly-title">一道題，看完整作答節奏。</h2>
-          </div>
-          <p>此處只驗收選項、進度與送出回饋，不含真實題文、正解或解析。</p>
-        </div>
-        <div class="quiz-shell">
-          <div class="quiz-meta">
-            <span>第 03 週・合成示意</span>
-            <span>第 1 / 20 題</span>
-          </div>
-          <div class="progress-track" aria-label="模擬測驗進度 5%"><span style="width: 5%"></span></div>
-          <fieldset class="quiz-question">
-            <legend><span>01</span>請選擇最符合本題「合成示意條件」的選項。</legend>
-            <label><input type="radio" name="demo-answer" value="A" /><span>A</span>選項 A（合成內容）</label>
-            <label><input type="radio" name="demo-answer" value="B" /><span>B</span>選項 B（合成內容）</label>
-            <label><input type="radio" name="demo-answer" value="C" /><span>C</span>選項 C（合成內容）</label>
-            <label><input type="radio" name="demo-answer" value="D" /><span>D</span>選項 D（合成內容）</label>
-          </fieldset>
-          <div class="quiz-footer">
-            <p id="quiz-feedback" role="status">請先選擇一個選項。</p>
-            <button id="quiz-submit" class="button button-primary" type="button" disabled>確認作答</button>
-          </div>
-        </div>
-      </section>
+    <section id="lesson-practice" class="lesson-promo shell" aria-labelledby="lessonPromoTitle">
+      <div class="lesson-promo-copy">
+        <p class="eyebrow">LESSON 01–25・逐課測驗</p>
+        <h2 id="lessonPromoTitle">週測卡住時，回到那一課補強</h2>
+        <p>每個句型各安排知識、理解、應用三種題目；依課次共有 6～18 題。作答完成才顯示結果，試行題與 CAT 正式診斷證據分開計算。</p>
+        <a class="button primary" href="./lessons/">查看全部 25 課 <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="lesson-promo-numbers" aria-label="逐課測驗摘要">
+        <article><b>25</b><span>課完整建檔</span></article>
+        <article><b>291</b><span>逐課練習題</span></article>
+        <article><b>6–18</b><span>每課題數</span></article>
+      </div>
+    </section>
 
-      <section id="cat" class="page-section section-pad section-dark" aria-labelledby="cat-title">
-        <div class="section-heading inverse">
-          <div>
-            <p class="eyebrow">ADAPTIVE DIAGNOSTIC</p>
-            <h2 id="cat-title">CAT 診斷，看的是下一步。</h2>
-          </div>
-          <p>切換學習狀態，預覽系統如何將合成作答資料轉為建議。</p>
-        </div>
-        <div class="cat-layout">
-          <div class="cat-controls" role="group" aria-label="CAT 合成狀態切換">
-            <button type="button" class="cat-switch is-active" data-profile="steady" aria-pressed="true">穩定前進</button>
-            <button type="button" class="cat-switch" data-profile="review" aria-pressed="false">需再複習</button>
-            <button type="button" class="cat-switch" data-profile="ready" aria-pressed="false">進階準備</button>
-          </div>
-          <article class="cat-result" aria-live="polite">
-            <div class="cat-score">
-              <span id="cat-score">72</span><small>/ 100</small>
-            </div>
-            <div>
-              <p class="kicker" id="cat-label">合成結果／穩定前進</p>
-              <h3 id="cat-headline">基礎已成形，保持當週練習節奏。</h3>
-              <p id="cat-copy">建議完成本週錯題回看，並依原進度進入下一週。本數值僅作 UI 驗收。</p>
-            </div>
-          </article>
-        </div>
-      </section>
+    <section id="cat-diagnostic" class="cat-promo shell" aria-labelledby="catPromoTitle">
+      <div class="cat-promo-copy">
+        <p class="eyebrow light">N5 CAT DIAGNOSTIC</p>
+        <h2 id="catPromoTitle">完成幾週後，看看整體學習位置</h2>
+        <p>系統先從八個課程區段各抽取知識、理解與應用題，再針對證據不足或訊號不一致的地方補問。通常約 36 題，完成後會得到三層能力、課群表現與句型觀察。</p>
+        <a class="button cat-promo-button" href="./diagnostic/">進入 CAT 精熟度診斷 <span aria-hidden="true">→</span></a>
+        <p class="micro-copy">CAT 為規則式試行診斷，不提供 JLPT 合格預測或 N4 銜接判定。</p>
+      </div>
+      <div class="cat-promo-stats" aria-label="CAT 診斷規格">
+        <article><span>涵蓋範圍</span><b>25 課</b><small>直達車 L1–L25</small></article>
+        <article><span>一般作答量</span><b>約 36</b><small>最少 32・最多 40</small></article>
+        <article><span>診斷面向</span><b>8 × 3</b><small>課群 × 能力層</small></article>
+      </div>
+    </section>
 
-      <section id="inbody" class="page-section section-pad" aria-labelledby="inbody-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">LEARNING INBODY</p>
-            <h2 id="inbody-title">學習 InBody，不只有一個分數。</h2>
-          </div>
-          <p>以合成資料示範學員可見的累計時數、進度、穩定度與建議。</p>
-        </div>
-        <div class="inbody-grid">
-          <article class="inbody-primary">
-            <p class="kicker">學習節奏</p>
-            <div class="ring" style="--value: 68"><span>68<small>%</small></span></div>
-            <h3>穩定累積中</h3>
-            <p>近 7 日有 4 天完成學習紀錄。</p>
-          </article>
-          <div class="metric-list">
-            <article><span>累計練習</span><strong>06:42</strong><small>小時／合成資料</small></article>
-            <article><span>課程進度</span><strong>09 / 25</strong><small>已完成課次</small></article>
-            <article><span>本週完成</span><strong>03 / 04</strong><small>學習節點</small></article>
-            <article><span>最近登入</span><strong>2 天前</strong><small>合成時間</small></article>
-          </div>
-          <article class="coach-note">
-            <span class="note-index">01</span>
-            <p class="kicker">下一步建議</p>
-            <h3>先完成當週回看，再解鎖下一課。</h3>
-            <p>合成建議將來可由測驗、登入與練習時數共同產生。</p>
-          </article>
-        </div>
-      </section>
+    <section id="learning-inbody" class="learner-promo shell" aria-labelledby="learnerPromoTitle">
+      <div class="learner-promo-copy">
+        <p class="eyebrow light">LEARNING INBODY・LOCAL QA</p>
+        <h2 id="learnerPromoTitle">最後，把每次練習收進同一份歷程</h2>
+        <p>把逐課測驗、CAT 診斷、K／U／A、學習方式與教練聊天放在同一個人名下。現在先用清楚標示的合成學員驗收；正式版將讓每位學員以專屬帳號登入，只看自己的資料。</p>
+        <a class="button learner-promo-button" href="./learner/">開啟合成學員示範 <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="learner-promo-grid" aria-label="學習 InBody 四個面向">
+        <article><span>01</span><b>狀態總覽</b><p>完成課次、正確率與下一步。</p></article>
+        <article><span>02</span><b>學習歷程</b><p>25 課地圖與最近活動。</p></article>
+        <article><span>03</span><b>學習方式</b><p>方法、時間、頻率與自評。</p></article>
+        <article><span>04</span><b>聊天紀錄</b><p>保留教練陪跑的上下文。</p></article>
+      </div>
+    </section>
 
-      <section id="admin" class="page-section section-pad section-tint" aria-labelledby="admin-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">READ-ONLY ADMIN PREVIEW</p>
-            <h2 id="admin-title">管理後台，先看狀態再行動。</h2>
-          </div>
-          <p>此版僅展示資訊層級，不提供帳號新增、刪除、匯入或資料寫入。</p>
-        </div>
-        <div class="admin-shell" aria-label="管理後台合成資料預覽">
-          <div class="admin-toolbar">
-            <div>
-              <strong>學員進度摘要</strong>
-              <span>更新時間：合成示意</span>
-            </div>
-            <span class="readonly-chip">唯讀模式</span>
-          </div>
-          <div class="admin-stats">
-            <article><span>合成學員</span><strong>24</strong></article>
-            <article><span>週測完成率</span><strong>79%</strong></article>
-            <article><span>本週需關懷</span><strong>04</strong></article>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <caption class="sr-only">合成學員學習狀態</caption>
-              <thead><tr><th scope="col">學員</th><th scope="col">當前週次</th><th scope="col">練習時數</th><th scope="col">最近活動</th><th scope="col">狀態</th></tr></thead>
-              <tbody>
-                <tr><td>示範學員 A001</td><td>Week 3</td><td>06:42</td><td>合成時間 A</td><td><span class="status good">穩定</span></td></tr>
-                <tr><td>示範學員 A002</td><td>Week 2</td><td>04:18</td><td>合成時間 B</td><td><span class="status watch">待關懷</span></td></tr>
-                <tr><td>示範學員 A003</td><td>Week 3</td><td>07:05</td><td>合成時間 C</td><td><span class="status good">穩定</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+  </main>
 
-      <section class="closing page-section" aria-labelledby="closing-title">
-        <p class="eyebrow">NEXT GATE</p>
-        <h2 id="closing-title">這一版驗收流程與視覺。<br />下一階段，才接入真實系統。</h2>
-        <p>如需測試完整帳號、密碼、題庫、計分與學習資料保存，請使用獨立 staging 環境。</p>
-        <a class="button button-primary" href="#overview">回到頁首</a>
-      </section>
-    </main>
-
-    <footer>
-      <span>八週 N5 陪跑評測・靜態 UI 驗收版</span>
-      <span>所有資料為合成資料</span>
-    </footer>
-  </body>
+  <footer class="site-footer shell">
+    <p><strong>王可樂日語・八週陪跑 N5</strong><span>官方品牌視覺 QA 版・本機預覽</span></p>
+    <p class="footer-links"><a href="#weekly-tests">每週測驗</a><a href="./lessons/">25 課逐課測驗</a><a href="./diagnostic/">N5 CAT 診斷</a><a href="./learner/">學習 InBody</a></p>
+  </footer>
+    <script src="assets/preview-api.js?v=20261024-1"></script>
+  <script type="module" src="./assets/auth-session.js?v=20261024-1"></script>
+  <script type="module" src="./assets/app.js"></script>
+</body>
 </html>

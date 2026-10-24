@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#4a261d">
+  <meta name="description" content="王可樂日語 N5 八週陪跑學習 InBody 本機 QA 示範。">
+  <title>學習 InBody｜王可樂日語・八週陪跑 N5</title>
+  <link rel="icon" href="../assets/brand/wangkele-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css?v=20261024-10">
+  <link rel="stylesheet" href="../assets/japanese-minimal.css?v=20261024-12">
+</head>
+<body data-page="learner-inbody">
+  <a class="skip-link" href="#main">跳到主要內容</a>
+  <div class="preview-ribbon" role="status">
+    <span>LOCAL QA</span>
+    <p><strong>學習 InBody 合成示範</strong>　已沿用平台登入，不再要求學員輸入其他個資</p>
+  </div>
+
+  <header class="site-header assessment-header learner-header">
+    <a class="wordmark" href="../" aria-label="返回王可樂日語八週陪跑 N5 首頁">
+      <img class="wordmark-logo" src="../assets/brand/wangkele-logo.svg" width="180" height="100" alt="王可樂日語">
+      <span class="program-lockup"><b>學習 InBody</b><small>N5 八週陪跑・個人學習狀態</small></span>
+    </a>
+    <div class="header-actions">
+      <a class="text-link" href="../">返回課程首頁</a>
+      <div class="learner-session-control" aria-label="學員登入狀態">
+        <span>已登入・<b data-learner-name>學員</b></span>
+        <button type="button" data-auth-logout>登出</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="learner-main">
+    <section id="loadingView" class="state-card shell" aria-live="polite">
+      <p class="eyebrow">BUILDING PROFILE</p>
+      <h1>正在整理學習 InBody…</h1>
+      <p>系統正在載入合成資料，並檢查這台裝置是否有可核對的本機測驗結果。</p>
+    </section>
+
+    <section id="errorView" class="state-card shell hidden" role="alert">
+      <p class="eyebrow danger">INBODY UNAVAILABLE</p>
+      <h1>目前無法開啟學習 InBody</h1>
+      <p id="errorText"></p>
+      <div class="result-actions">
+        <button id="retryButton" class="button primary" type="button">重新載入</button>
+        <a class="button ghost" href="../">返回課程首頁</a>
+      </div>
+    </section>
+
+    <section id="dashboardView" class="learner-dashboard hidden">
+      <div class="learner-dashboard-top shell">
+        <div class="learner-profile-lockup">
+          <span id="avatarInitial" class="learner-avatar" aria-hidden="true">可</span>
+          <div>
+            <p class="eyebrow">N5 LEARNING INBODY</p>
+            <h1 id="learnerName">合成學員・小可</h1>
+            <p id="learnerCohort">八週陪跑 N5・本機 QA</p>
+          </div>
+        </div>
+        <div class="learner-dashboard-actions">
+          <button id="syncButton" class="button ghost" type="button">同步這台裝置的測驗結果</button>
+        </div>
+      </div>
+
+      <div class="learner-provenance shell" role="status">
+        <span>資料來源</span>
+        <strong id="provenanceLabel">全為合成示範資料</strong>
+        <p id="provenanceWarning">此頁不含真實學員資料。</p>
+      </div>
+      <p id="syncStatus" class="learner-sync-status shell" aria-live="polite"></p>
+
+      <nav class="learner-section-nav shell" aria-label="學習 InBody 區段">
+        <a href="#snapshot">狀態總覽</a>
+        <a href="#practiceTime">練習時數</a>
+        <a href="#loginHistory">登入紀錄</a>
+        <a href="#journey">學習歷程</a>
+        <a href="#methods">學習方式</a>
+        <a href="#chat">聊天紀錄</a>
+      </nav>
+
+      <section id="snapshot" class="learner-snapshot shell" aria-labelledby="snapshotHeading">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">TODAY'S SNAPSHOT</p><h2 id="snapshotHeading">目前的學習狀態</h2></div>
+          <p id="snapshotGenerated">依目前可用證據生成</p>
+        </div>
+        <div class="learner-metric-grid">
+          <article class="learner-metric primary"><span>完成課次</span><b id="metricCoverage">—</b><p id="metricCoverageNote">—</p></article>
+          <article><span>課後練習正確率</span><b id="metricAccuracy">—</b><p id="metricAccuracyNote">—</p></article>
+          <article><span>學習節奏</span><b id="metricRhythm">—</b><p>方法紀錄的示範摘要</p></article>
+          <article class="focus"><span>下一個焦點</span><b id="metricFocus">—</b><p>只表示練習訊號，不是能力認證</p></article>
+        </div>
+
+        <div class="learner-dimension-panel">
+          <div>
+            <p class="eyebrow light">K・U・A PROFILE</p>
+            <h3>三層能力剖面</h3>
+            <p>缺少證據時會顯示「尚無證據」，不會把空值當成零分。</p>
+          </div>
+          <div id="dimensionProfile" class="learner-dimension-list"></div>
+        </div>
+
+        <div class="learner-action-panel">
+          <div><p class="eyebrow">NEXT BEST ACTION</p><h3>現在最值得做的三件事</h3></div>
+          <ol id="nextActions"></ol>
+        </div>
+      </section>
+
+      <section id="practiceTime" class="learner-section learner-practice-time-section shell" aria-labelledby="practiceTimeHeading">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">PRACTICE TIME</p><h2 id="practiceTimeHeading">累計練習時數</h2></div>
+          <p>累計有實際答題或有效練習的時間，並列出近期練習明細。</p>
+        </div>
+
+        <div id="practiceTimePanel" class="learner-practice-time-panel" aria-busy="true">
+          <div id="practiceTimeLoading" class="learner-practice-time-state" role="status" aria-live="polite">
+            <span class="learner-practice-time-mark" aria-hidden="true">計</span>
+            <div><h3>正在統計練習時數</h3><p>系統正在整理這個學員帳號的練習紀錄。</p></div>
+          </div>
+
+          <div id="practiceTimeError" class="learner-practice-time-state is-error hidden" role="alert">
+            <span class="learner-practice-time-mark" aria-hidden="true">!</span>
+            <div>
+              <h3>目前無法載入練習時數</h3>
+              <p id="practiceTimeErrorText">請稍後再試一次。</p>
+              <button id="practiceTimeRetry" class="button ghost" type="button">重新載入練習時數</button>
+            </div>
+          </div>
+
+          <div id="practiceTimeEmpty" class="learner-practice-time-state hidden" role="status">
+            <span class="learner-practice-time-mark" aria-hidden="true">零</span>
+            <div><h3>還沒有可累計的練習</h3><p>開始課次練習、N5 CAT 或週測後，有效練習時間會顯示在這裡。</p></div>
+          </div>
+
+          <div id="practiceTimeContent" class="learner-practice-time-content hidden">
+            <div class="learner-practice-time-summary" aria-label="練習時數摘要">
+              <article class="learner-practice-time-total">
+                <span>累計有效練習</span>
+                <strong id="totalPracticeTime">—</strong>
+                <p>練習中的進度也會納入累計。</p>
+              </article>
+              <dl class="learner-practice-time-facts">
+                <div><dt>練習次數</dt><dd id="practiceSessionCount">—</dd></div>
+                <div><dt>最後練習</dt><dd id="lastPracticedTime">—</dd></div>
+              </dl>
+            </div>
+            <div class="learner-practice-time-heading">
+              <div><h3>近期練習明細</h3><p id="practiceTimeCount">—</p></div>
+              <p>時數由系統帳號統計，不會另存到這台瀏覽器。</p>
+            </div>
+            <ol id="practiceTimeList" class="learner-practice-time-list" aria-label="近期練習明細"></ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="loginHistory" class="learner-section learner-login-history-section shell" aria-labelledby="loginHistoryHeading">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">ACCOUNT SECURITY</p><h2 id="loginHistoryHeading">我的登入紀錄</h2></div>
+          <p>查看近期登入時間、裝置與來源；若發現不是自己的紀錄，請立即修改密碼並聯絡課程團隊。</p>
+        </div>
+
+        <div id="loginHistoryPanel" class="learner-login-history-panel" aria-busy="true">
+          <div id="loginHistoryLoading" class="learner-login-history-state" role="status" aria-live="polite">
+            <span class="learner-login-history-mark" aria-hidden="true">讀</span>
+            <div><h3>正在讀取登入紀錄</h3><p>系統正在核對這個學員帳號的近期登入活動。</p></div>
+          </div>
+
+          <div id="loginHistoryError" class="learner-login-history-state is-error hidden" role="alert">
+            <span class="learner-login-history-mark" aria-hidden="true">!</span>
+            <div>
+              <h3>目前無法載入登入紀錄</h3>
+              <p id="loginHistoryErrorText">請稍後再試一次。</p>
+              <button id="loginHistoryRetry" class="button ghost" type="button">重新載入登入紀錄</button>
+            </div>
+          </div>
+
+          <div id="loginHistoryEmpty" class="learner-login-history-state hidden" role="status">
+            <span class="learner-login-history-mark" aria-hidden="true">零</span>
+            <div><h3>目前沒有登入紀錄</h3><p>之後成功登入時，時間、裝置摘要與來源 IP 會顯示在這裡。</p></div>
+          </div>
+
+          <div id="loginHistoryContent" class="learner-login-history-content hidden">
+            <article class="learner-login-latest" aria-labelledby="latestLoginHeading">
+              <div>
+                <span>最近登入</span>
+                <h3 id="latestLoginHeading">這個帳號最近一次的登入活動</h3>
+              </div>
+              <strong id="latestLoginTime">—</strong>
+              <p id="latestLoginSummary">—</p>
+            </article>
+            <div class="learner-login-history-heading">
+              <div><h3>近期紀錄</h3><p id="loginHistoryCount">—</p></div>
+              <p>登入紀錄由系統帳號保存，不會另存到這台瀏覽器。</p>
+            </div>
+            <ol id="loginHistoryList" class="learner-login-history-list" aria-label="近期登入紀錄"></ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="journey" class="learner-section shell" aria-labelledby="journeyHeading">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">LEARNING JOURNEY</p><h2 id="journeyHeading">25 課學習歷程</h2></div>
+          <p>合成紀錄與本機核對結果會明確標示，不混成正式精熟判定。</p>
+        </div>
+        <div id="lessonBodyMap" class="learner-lesson-map" aria-label="第 1 至 25 課完成狀態"></div>
+        <div class="learner-history-card">
+          <div><p class="eyebrow">RECENT ACTIVITY</p><h3>最近活動</h3></div>
+          <ol id="activityTimeline" class="learner-timeline"></ol>
+        </div>
+      </section>
+
+      <section id="methods" class="learner-section shell" aria-labelledby="methodsHeading">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">HOW I LEARN</p><h2 id="methodsHeading">學習方式紀錄</h2></div>
+          <p>正式版可讓學員記錄方法、時間與自評，再和測驗變化並列觀察，不宣稱因果。</p>
+        </div>
+        <div id="methodCards" class="learner-method-grid"></div>
+        <aside class="learner-future-note">
+          <strong>正式版資料欄位</strong>
+          <p>日期、學習方式、分鐘數、關聯課次、自評效果與備註；所有內容綁定不可變 learner_id。</p>
+        </aside>
+      </section>
+
+      <section id="chat" class="learner-section shell" aria-labelledby="chatHeading">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">COACHING CONTEXT</p><h2 id="chatHeading">聊天紀錄</h2></div>
+          <p>目前只展示合成對話，不傳送訊息，也不假裝已有 AI 或教練在線。</p>
+        </div>
+        <div class="learner-chat-layout">
+          <aside class="learner-chat-thread">
+            <span>示範對話</span>
+            <h3 id="chatTitle">第 2 週學習回顧</h3>
+            <p>正式版需完成本人／教練權限、留存、匯出與刪除政策。</p>
+          </aside>
+          <div id="chatMessages" class="learner-chat-messages"></div>
+        </div>
+      </section>
+
+      <section class="learner-privacy shell" aria-labelledby="privacyHeading">
+        <div><p class="eyebrow light">DATA BOUNDARY</p><h2 id="privacyHeading">登入後統一歸戶，測驗不再收集個資</h2></div>
+        <dl>
+          <div><dt>本次保存</dt><dd id="privacyStorage">—</dd></div>
+          <div><dt>瀏覽器保存</dt><dd id="privacyBrowser">—</dd></div>
+          <div><dt>聊天政策</dt><dd id="privacyChat">—</dd></div>
+        </dl>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <p><strong>王可樂日語・學習 InBody</strong><span>短期學員登入 QA・學習 InBody 正式資料串接尚未啟用</span></p>
+    <p class="footer-links"><a href="../lessons/">25 課逐課測驗</a><a href="../diagnostic/">N5 CAT 診斷</a></p>
+  </footer>
+
+    <script src="../assets/preview-api.js?v=20261024-1"></script>
+  <script type="module" src="../assets/auth-session.js?v=20261024-1"></script>
+  <script type="module" src="../assets/learner.js?v=20261024-3"></script>
+</body>
+</html>

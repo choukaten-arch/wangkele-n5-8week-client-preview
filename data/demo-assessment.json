@@ -1,0 +1,16 @@
+{
+  "schema_version": "n5w8-synthetic-preview-v1",
+  "fixture_type": "synthetic-ui-only",
+  "title": "操作流程示意",
+  "notice": "本頁只測試介面與續答流程，不代表正式題庫內容或學習成績。",
+  "prompt_template": "介面測試題 {n}",
+  "body_template": "這是第 {n} 題的合成佔位內容。請任選一項，以確認作答、換題與續答功能。",
+  "options": [
+    "示意選項 A",
+    "示意選項 B",
+    "示意選項 C",
+    "示意選項 D"
+  ],
+  "result_policy": "completion-only"
+}
+

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#4a261d">
+  <title>評量流程預覽｜王可樂日語・八週陪跑 N5</title>
+  <link rel="icon" href="../assets/brand/wangkele-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css?v=20261024-10">
+  <link rel="stylesheet" href="../assets/japanese-minimal.css?v=20261024-10">
+</head>
+<body data-page="assessment">
+  <a class="skip-link" href="#main">跳到主要內容</a>
+  <div class="preview-ribbon" role="status">
+    <span>LOCAL QA</span>
+    <p><strong>合成題流程預覽</strong>　不評分、練習時數會歸戶、不代表正式學習成果</p>
+  </div>
+  <header class="site-header assessment-header">
+    <a class="wordmark" href="../" aria-label="返回王可樂日語八週陪跑 N5 首頁">
+      <img class="wordmark-logo" src="../assets/brand/wangkele-logo.svg" width="180" height="100" alt="王可樂日語">
+      <span class="program-lockup"><b>N5 八週陪跑</b><small>評量流程預覽</small></span>
+    </a>
+    <div class="header-actions">
+      <a class="text-link" href="../">返回八週安排</a>
+      <div class="learner-session-control" aria-label="學員登入狀態">
+        <span>已登入・<b data-learner-name>學員</b></span>
+        <button type="button" data-auth-logout>登出</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="assessment-main shell">
+    <section id="loadingView" class="state-card">
+      <p class="eyebrow">LOADING</p>
+      <h1>正在準備評量流程…</h1>
+    </section>
+
+    <section id="errorView" class="state-card hidden" role="alert">
+      <p class="eyebrow danger">PREVIEW ERROR</p>
+      <h1>無法開啟這份預覽</h1>
+      <p id="errorText"></p>
+      <a class="button primary" href="../">返回八週安排</a>
+    </section>
+
+    <section id="startView" class="start-layout hidden">
+      <div class="assessment-intro">
+        <div class="assessment-course-banner">
+          <img src="../assets/brand/n5-course-visual.jpg" width="1800" height="1440" alt="">
+          <p><span>王可樂日語初級 N5</span><b>直達車 01–25 課</b></p>
+        </div>
+        <p id="assessmentKind" class="eyebrow">WEEKLY CHECK</p>
+        <h1 id="assessmentLabel">第 1 週</h1>
+        <p id="assessmentScope" class="assessment-scope">L1–L3</p>
+        <p class="intro-copy">這是介面與續答流程測試。內容為合成佔位題，不會計算分數；選擇的答案只留在這台裝置，僅將有效練習時數與已作答題數歸入學員帳號。</p>
+        <div class="assessment-specs">
+          <div><b id="questionCount">20</b><span>題目</span></div>
+          <div><b id="durationMinutes">20</b><span>分鐘</span></div>
+          <div><b id="patternCount">15</b><span>文型規劃</span></div>
+        </div>
+      </div>
+      <form id="startForm" class="entry-card" novalidate>
+        <p class="step-kicker">READY</p>
+        <h2>準備開始流程預覽</h2>
+        <div class="authenticated-start-note">
+          <span>已登入</span>
+          <p>將以 <b data-learner-name>目前學員</b> 身分進行；不需要再填姓名、Email、手機或學號。</p>
+        </div>
+        <button class="button primary full" type="submit">開始預覽 <span aria-hidden="true">→</span></button>
+        <button id="resumeButton" class="button ghost full hidden" type="button">繼續上次進度</button>
+      </form>
+    </section>
+
+    <section id="quizView" class="quiz-layout hidden">
+      <div class="quiz-status">
+        <div><span id="quizLabel">第 1 週</span><b id="quizScope">L1–L3</b></div>
+        <div class="timer" aria-live="polite"><small>剩餘時間</small><strong id="timer">20:00</strong></div>
+      </div>
+      <div class="progress-track" aria-label="作答進度"><i id="progressBar"></i></div>
+
+      <article class="question-panel">
+        <div class="question-meta"><span id="questionNumber">第 1 / 20 題</span><span>SYNTHETIC PREVIEW</span></div>
+        <h1 id="questionPrompt">介面測試題 1</h1>
+        <p id="questionBody" class="question-body"></p>
+        <fieldset id="optionGroup" class="option-group">
+          <legend class="sr-only">請選擇一個示意選項</legend>
+        </fieldset>
+        <p id="quizHint" class="quiz-hint" aria-live="polite"></p>
+      </article>
+
+      <nav class="question-nav" aria-label="題目導覽">
+        <button id="prevButton" class="button ghost" type="button">← 上一題</button>
+        <div id="questionDots" class="question-dots" aria-label="題目狀態"></div>
+        <button id="nextButton" class="button primary" type="button">下一題 →</button>
+        <button id="submitButton" class="button primary hidden" type="button">確認交卷</button>
+      </nav>
+    </section>
+
+    <section id="resultView" class="result-layout hidden">
+      <div class="result-mark" aria-hidden="true">✓</div>
+      <p class="eyebrow">PREVIEW COMPLETE</p>
+      <h1>流程預覽完成</h1>
+      <p id="completionText" class="result-lead"></p>
+      <div class="result-summary">
+        <div><b id="completedCount">0</b><span>已作答</span></div>
+        <div><b id="elapsedLabel">—</b><span>使用時間</span></div>
+        <div><b>未評分</b><span>結果模式</span></div>
+      </div>
+      <aside class="recommendation-placeholder">
+        <p class="eyebrow">N4 READINESS</p>
+        <h2>銜接建議規則待教學方核准</h2>
+        <p>正式版將依經核准的能力藍圖與門檻提供建議；此預覽不推估 JLPT N5 合格或是否適合進入 N4。</p>
+      </aside>
+      <div class="result-actions">
+        <button id="restartButton" class="button ghost" type="button">重新測試</button>
+        <a class="button primary" href="../">返回八週安排</a>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="submitDialog" class="submit-dialog">
+    <form method="dialog">
+      <p class="eyebrow">FINAL CHECK</p>
+      <h2>確定完成這次流程預覽？</h2>
+      <p>送出只會在本機顯示完成頁，不會上傳或建立營運資料。</p>
+      <div>
+        <button class="button ghost" value="cancel">繼續檢查</button>
+        <button id="confirmSubmitButton" class="button primary" value="confirm">確認完成</button>
+      </div>
+    </form>
+  </dialog>
+
+    <script src="../assets/preview-api.js?v=20261024-1"></script>
+  <script type="module" src="../assets/auth-session.js?v=20261024-1"></script>
+  <script type="module" src="../assets/assessment.js"></script>
+</body>
+</html>

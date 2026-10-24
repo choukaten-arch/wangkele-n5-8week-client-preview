@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#f3eee4">
+  <meta name="description" content="王可樂日語 N5 八週陪跑學員修改密碼。">
+  <title>修改密碼｜王可樂日語・八週陪跑 N5</title>
+  <link rel="icon" href="../assets/brand/wangkele-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css?v=20261024-12">
+  <link rel="stylesheet" href="../assets/japanese-minimal.css?v=20261024-10">
+</head>
+<body data-page="change-password">
+  <a class="skip-link" href="#main">跳到主要內容</a>
+  <div class="preview-ribbon" role="status">
+    <span>ACCOUNT</span>
+    <p><strong>設定學員密碼</strong>　新密碼不會儲存在瀏覽器中</p>
+  </div>
+
+  <header class="site-header login-header">
+    <a class="wordmark" href="/" aria-label="回到王可樂日語八週陪跑 N5 首頁">
+      <img class="wordmark-logo" src="../assets/brand/wangkele-logo.svg" width="180" height="100" alt="王可樂日語">
+      <span class="program-lockup"><b>N5 八週陪跑</b><small>學員專屬入口</small></span>
+    </a>
+    <span class="login-header-note">帳號安全</span>
+  </header>
+
+  <main id="main" class="password-page-main shell">
+    <section class="password-page-copy" aria-labelledby="pageTitle">
+      <p class="eyebrow">ACCOUNT SECURITY</p>
+      <h1 id="pageTitle">設定你的<br><span>登入密碼</span></h1>
+      <p>完成後會登出目前工作階段，請用新密碼重新登入。密碼只會送往身分服務處理。</p>
+    </section>
+
+    <section class="login-card password-card" aria-labelledby="passwordHeading">
+      <p class="step-kicker">CHANGE PASSWORD</p>
+      <h2 id="passwordHeading">修改密碼</h2>
+      <p id="passwordModeMessage">正在確認登入狀態…</p>
+      <form id="changePasswordForm" class="hidden" novalidate>
+        <div id="currentPasswordField">
+          <label for="currentPassword">目前密碼</label>
+          <input id="currentPassword" name="currentPassword" type="password" autocomplete="current-password" minlength="10" maxlength="200">
+        </div>
+        <label for="newPassword">新密碼</label>
+        <input id="newPassword" name="newPassword" type="password" autocomplete="new-password" required minlength="10" maxlength="200" aria-describedby="passwordRules">
+        <label for="confirmPassword">再次輸入新密碼</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required minlength="10" maxlength="200">
+        <p id="passwordRules" class="password-rules">請設定 10–200 字的新密碼，並避免使用手機號碼或容易猜到的資訊。</p>
+        <p id="changePasswordError" class="login-error" role="alert" aria-live="polite"></p>
+        <button id="changePasswordButton" class="button primary full" type="submit">儲存新密碼</button>
+      </form>
+      <a id="cancelPasswordChange" class="password-cancel-link" href="/">稍後再修改</a>
+    </section>
+  </main>
+
+  <footer class="site-footer shell login-footer">
+    <p><strong>王可樂日語・N5 八週陪跑</strong><span>帳號安全設定</span></p>
+  </footer>
+
+    <script src="../assets/preview-api.js?v=20261024-1"></script>
+  <script type="module" src="../assets/change-password.js?v=20261024-1"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "schema_version": "n5w8-cat-public-v1",
+  "assessment_id": "n5w8_cat_diagnostic",
+  "title": "N5 CAT 精熟度診斷",
+  "subtitle": "直達車第 1～25 課・規則式 CAT 試行版",
+  "mode": "operational",
+  "trial": true,
+  "question_count": {
+    "minimum": 32,
+    "typical": 36,
+    "maximum": 40
+  },
+  "duration_minutes": {
+    "minimum": 25,
+    "maximum": 35
+  },
+  "bank_inventory": {
+    "private_candidate_count": 291,
+    "approved_scoring_count": 231,
+    "pending_review_count": 60,
+    "grammar_pattern_count": 97,
+    "lesson_count": 25
+  },
+  "dimensions": [
+    { "code": "K", "label": "知識", "description": "辨認句型規則與基本形式" },
+    { "code": "U", "label": "理解", "description": "理解語意、情境與形式差異" },
+    { "code": "A", "label": "應用", "description": "在句子或對話中實際運用" }
+  ],
+  "week_groups": [
+    { "week": 1, "label": "第 1 區段", "lesson_label": "L1–L3", "lesson_start": 1, "lesson_end": 3 },
+    { "week": 2, "label": "第 2 區段", "lesson_label": "L4–L6", "lesson_start": 4, "lesson_end": 6 },
+    { "week": 3, "label": "第 3 區段", "lesson_label": "L7–L9", "lesson_start": 7, "lesson_end": 9 },
+    { "week": 4, "label": "第 4 區段", "lesson_label": "L10–L12", "lesson_start": 10, "lesson_end": 12 },
+    { "week": 5, "label": "第 5 區段", "lesson_label": "L13–L15", "lesson_start": 13, "lesson_end": 15 },
+    { "week": 6, "label": "第 6 區段", "lesson_label": "L16–L18", "lesson_start": 16, "lesson_end": 18 },
+    { "week": 7, "label": "第 7 區段", "lesson_label": "L19–L21", "lesson_start": 19, "lesson_end": 21 },
+    { "week": 8, "label": "第 8 區段", "lesson_label": "L22–L25", "lesson_start": 22, "lesson_end": 25 }
+  ],
+  "disclaimer": "本結果為課程範圍內的抽測診斷，不是 JLPT 合格判定，也不代表未抽到的句型已精熟。"
+}

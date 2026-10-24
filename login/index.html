@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#f3eee4">
+  <meta name="description" content="王可樂日語 N5 八週陪跑學員登入。">
+  <title>學員登入｜王可樂日語・八週陪跑 N5</title>
+  <link rel="icon" href="../assets/brand/wangkele-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css?v=20261024-15">
+  <link rel="stylesheet" href="../assets/japanese-minimal.css?v=20261024-10">
+</head>
+<body data-page="learner-login">
+  <a class="skip-link" href="#main">跳到主要內容</a>
+  <div class="preview-ribbon" role="status">
+    <span>LOCAL QA</span>
+    <p><strong>學員登入流程預覽</strong>　完成登入與首次密碼設定後即可使用所有功能，後續測驗不再填個資</p>
+  </div>
+
+  <header class="site-header login-header">
+    <div class="wordmark" aria-label="王可樂日語八週陪跑 N5">
+      <img class="wordmark-logo" src="../assets/brand/wangkele-logo.svg" width="180" height="100" alt="王可樂日語">
+      <span class="program-lockup"><b>N5 八週陪跑</b><small>學員專屬入口</small></span>
+    </div>
+    <span class="login-header-note">直達車 01–25 課</span>
+  </header>
+
+  <main id="main" class="login-main shell">
+    <section class="login-intro" aria-labelledby="loginTitle">
+      <p class="eyebrow">N5 EIGHT-WEEK PROGRAM</p>
+      <h1 id="loginTitle">N5 八週陪跑<br><span>學員平台</span></h1>
+      <p class="login-lead">登入後即可進行每週測驗、逐課練習與 CAT 診斷；作答結果與學習進度會自動記錄在你的帳號中。</p>
+      <ol class="login-flow" aria-label="登入後流程">
+        <li><span>01</span><div><b>輸入專屬帳密</b><p>帳密只送往登入服務，不保存在瀏覽器。</p></div></li>
+        <li><span>02</span><div><b>首次登入先改密碼</b><p>使用手機初始密碼或一次性密碼登入後，先設定自己的新密碼。</p></div></li>
+        <li><span>03</span><div><b>成績回到本人歷程</b><p>每次作答都綁定目前登入的學員。</p></div></li>
+      </ol>
+    </section>
+
+    <section class="login-card" aria-labelledby="credentialHeading">
+      <div class="login-card-mark" aria-hidden="true">可</div>
+      <p class="step-kicker">LEARNER SIGN IN</p>
+      <h2 id="credentialHeading">帳號登入</h2>
+      <p>請使用報名信箱與密碼登入。</p>
+      <form id="loginForm" novalidate>
+        <label for="account">學員信箱</label>
+        <input id="account" name="account" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="254">
+        <label for="password">密碼</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required maxlength="200">
+        <p id="loginError" class="login-error" role="alert" aria-live="polite"></p>
+        <button id="loginButton" class="button primary full" type="submit">登入並繼續 <span aria-hidden="true">→</span></button>
+      </form>
+
+      <details class="forgot-password-panel">
+        <summary>忘記密碼？</summary>
+        <form id="forgotPasswordForm" novalidate>
+          <p>輸入學員信箱取得重設方式。測試環境可能會直接顯示一次性密碼。</p>
+          <label for="forgotEmail">學員信箱</label>
+          <input id="forgotEmail" name="email" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="254">
+          <p id="forgotPasswordError" class="login-error" role="alert" aria-live="polite"></p>
+          <button id="forgotPasswordButton" class="button ghost full" type="submit">取得重設方式</button>
+        </form>
+        <div id="forgotPasswordResult" class="password-result hidden" role="status" aria-live="polite"></div>
+      </details>
+
+      <p class="login-privacy-note"><strong>初始密碼為手機號碼去除空格與符號後的數字。</strong>首次或使用一次性密碼登入後，系統會要求立即設定新密碼。</p>
+    </section>
+  </main>
+
+  <footer class="site-footer shell login-footer">
+    <p><strong>王可樂日語・N5 八週陪跑</strong><span>單一登入・學習紀錄歸戶</span></p>
+  </footer>
+
+    <script src="../assets/preview-api.js?v=20261024-1"></script>
+  <script type="module" src="../assets/login.js?v=20261024-2"></script>
+</body>
+</html>
