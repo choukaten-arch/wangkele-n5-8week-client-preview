@@ -25,7 +25,7 @@
 
 ## 測試帳號
 
-- 帳號：`demo@wangcola.test`（亦可輸入 `cola`）
+- 帳號：`demo@wangcola.test`
 - 密碼：`cola`
 - 忘記密碼流程會顯示一次性測試密碼 `COLA-ONCE`
 
