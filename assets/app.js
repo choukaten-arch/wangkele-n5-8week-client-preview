@@ -11,7 +11,13 @@ function makeElement(tag, className, text) {
 }
 
 function statusText(status) {
-  return status === "preview" ? "可預覽" : "規劃中";
+  const labels = {
+    preview: "可預覽",
+    planned: "規劃中",
+    customer_testing: "客戶驗收",
+    customer_testing_with_trial_items: "含試行題"
+  };
+  return labels[status] || "狀態未明";
 }
 
 export function organizeAssessments(assessments) {
@@ -23,7 +29,12 @@ export function organizeAssessments(assessments) {
   if (ids.some(id => typeof id !== "string" || !id) || new Set(ids).size !== ids.length) {
     throw new Error("program manifest assessment ids must be present and unique");
   }
-  if (assessments.some(item => !["preview", "planned"].includes(item?.status))) {
+  if (assessments.some(item => ![
+    "preview",
+    "planned",
+    "customer_testing",
+    "customer_testing_with_trial_items"
+  ].includes(item?.status))) {
     throw new Error("program manifest contains an unsupported assessment status");
   }
 
@@ -63,21 +74,25 @@ function createAssessmentCard(item) {
 
   const details = makeElement("div", "week-details");
   const detailLabels = item.kind === "final"
-    ? [`${item.question_count} 題`, `${item.duration_minutes} 分鐘`, "未見等值題規劃"]
+    ? [`${item.question_count} 題`, `${item.duration_minutes} 分鐘`, "核准母題庫抽題版"]
     : [
         `${item.question_count} 題`,
         `${item.pattern_count} 文型`,
-        item.review_count ? `${item.review_count} 題螺旋複習` : "本週內容起點"
+        item.status === "customer_testing_with_trial_items"
+          ? "含 8 題待審試行題"
+          : item.review_count
+            ? `${item.review_count} 題螺旋複習`
+            : "本週內容起點"
       ];
   for (const label of detailLabels) details.append(makeElement("span", "", label));
 
   const link = makeElement("a", "week-link");
   link.href = `./assessment/?id=${encodeURIComponent(item.id)}`;
   link.append(
-    document.createTextNode(item.kind === "final" ? "預覽期末流程" : "流程預覽"),
+    document.createTextNode(item.kind === "final" ? "開始期末驗收" : "開始測驗"),
     makeElement("span", "", "→")
   );
-  link.setAttribute("aria-label", `${item.label} ${item.lesson_label} 流程預覽`);
+  link.setAttribute("aria-label", `${item.label} ${item.lesson_label} 客戶驗收測驗`);
 
   card.append(index, heading, details, link);
   return card;

@@ -632,6 +632,16 @@ input:focus-visible,
   background: #e3f6ef;
 }
 
+.status-pill.customer_testing {
+  color: #24614f;
+  background: #e3f6ef;
+}
+
+.status-pill.customer_testing_with_trial_items {
+  color: #87411f;
+  background: #fff0df;
+}
+
 .week-card h3,
 .week-card h4 {
   margin: 0;
@@ -1161,6 +1171,24 @@ input:focus-visible,
   background: linear-gradient(90deg, var(--blue), #6f9df0);
   border-radius: inherit;
   transition: width 220ms ease;
+}
+
+.assessment-session-boundary {
+  margin: 0 0 18px;
+  padding: 13px 16px;
+  color: #415f54;
+  background: #edf7f2;
+  border: 1px solid rgba(79, 154, 127, 0.28);
+  border-radius: 13px;
+  font-size: 0.9rem;
+  font-weight: 750;
+  line-height: 1.65;
+}
+
+.assessment-session-boundary.has-candidates {
+  color: #79530f;
+  background: #fff8df;
+  border-color: rgba(181, 126, 20, 0.3);
 }
 
 .question-panel {
@@ -6931,20 +6959,20 @@ body[data-page="learner-login"] .login-header-note {
 }
 
 /* Learner-facing readable type scale */
-body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"]) {
+body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"], [data-page="assessment"]) {
   --learner-meta: 0.875rem;
   --learner-support: 0.9375rem;
   --learner-body: 1rem;
 }
 
-body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"]) :is(.eyebrow, .step-kicker),
-body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"]) .preview-ribbon,
-body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"]) .preview-ribbon span,
-body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"]) .wordmark small,
-body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"]) .site-footer span,
-body:is([data-page="lessons"], [data-page="lesson-assessment"]) .learner-session-control span,
-body:is([data-page="lessons"], [data-page="lesson-assessment"]) .learner-session-control button,
-body:is([data-page="lessons"], [data-page="lesson-assessment"]) .auth-password-link {
+body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"], [data-page="assessment"]) :is(.eyebrow, .step-kicker),
+body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"], [data-page="assessment"]) .preview-ribbon,
+body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"], [data-page="assessment"]) .preview-ribbon span,
+body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"], [data-page="assessment"]) .wordmark small,
+body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"], [data-page="assessment"]) .site-footer span,
+body:is([data-page="lessons"], [data-page="lesson-assessment"], [data-page="assessment"]) .learner-session-control span,
+body:is([data-page="lessons"], [data-page="lesson-assessment"], [data-page="assessment"]) .learner-session-control button,
+body:is([data-page="lessons"], [data-page="lesson-assessment"], [data-page="assessment"]) .auth-password-link {
   font-size: var(--learner-meta);
 }
 
@@ -6972,7 +7000,7 @@ body[data-page="lessons"] .lesson-card-link {
   font-size: var(--learner-body);
 }
 
-body[data-page="lesson-assessment"] :is(
+body:is([data-page="lesson-assessment"], [data-page="assessment"]) :is(
   .lesson-status,
   .lesson-pattern-number span,
   .lesson-pattern-index,
@@ -6990,11 +7018,11 @@ body[data-page="lesson-assessment"] :is(
   font-size: var(--learner-meta);
 }
 
-body[data-page="lesson-assessment"] .lesson-review-item summary::after {
+body:is([data-page="lesson-assessment"], [data-page="assessment"]) .lesson-review-item summary::after {
   font-size: var(--learner-meta);
 }
 
-body[data-page="lesson-assessment"] :is(
+body:is([data-page="lesson-assessment"], [data-page="assessment"]) :is(
   .lesson-trial-warning span,
   .lesson-pattern-footnote,
   .cat-notice strong,
@@ -7014,7 +7042,7 @@ body[data-page="lesson-assessment"] :is(
   font-size: var(--learner-support);
 }
 
-body[data-page="lesson-assessment"] :is(
+body:is([data-page="lesson-assessment"], [data-page="assessment"]) :is(
   .lesson-pattern-preview-copy > p:not(.eyebrow),
   .lesson-review-stem,
   .lesson-review-context,
@@ -7023,12 +7051,12 @@ body[data-page="lesson-assessment"] :is(
   font-size: var(--learner-body);
 }
 
-body[data-page="lesson-assessment"] .lesson-pattern-label {
+body:is([data-page="lesson-assessment"], [data-page="assessment"]) .lesson-pattern-label {
   font-size: 1.0625rem;
 }
 
 @media (max-width: 620px) {
-  body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"]) {
+  body:is([data-page="learner-login"], [data-page="lessons"], [data-page="lesson-assessment"], [data-page="assessment"]) {
     --learner-meta: 0.9375rem;
     --learner-support: 1rem;
   }

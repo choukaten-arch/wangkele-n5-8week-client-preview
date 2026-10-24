@@ -5,7 +5,9 @@
   "scope": "直達車第 1～25 課",
   "start_date_label": "12/1（年份待確認）",
   "timezone": "Asia/Taipei",
-  "preview_only": true,
+  "preview_only": false,
+  "customer_testing_only": true,
+  "assessment_release_note": "目前版本由 291 題既有母題庫即時抽題，供客戶驗收流程與內容；不是正式固定卷，也不作為精熟或升級判定。",
   "learner_portal": {
     "id": "n5w8_learning_inbody",
     "label": "學習 InBody",
@@ -43,7 +45,7 @@
       "current_count": 20,
       "review_count": 0,
       "duration_minutes": 20,
-      "status": "preview"
+      "status": "customer_testing_with_trial_items"
     },
     {
       "id": "n5w8_week_02",
@@ -58,7 +60,7 @@
       "current_count": 16,
       "review_count": 4,
       "duration_minutes": 20,
-      "status": "planned"
+      "status": "customer_testing"
     },
     {
       "id": "n5w8_week_03",
@@ -73,7 +75,7 @@
       "current_count": 16,
       "review_count": 4,
       "duration_minutes": 20,
-      "status": "planned"
+      "status": "customer_testing"
     },
     {
       "id": "n5w8_week_04",
@@ -88,7 +90,7 @@
       "current_count": 16,
       "review_count": 4,
       "duration_minutes": 20,
-      "status": "planned"
+      "status": "customer_testing"
     },
     {
       "id": "n5w8_week_05",
@@ -103,7 +105,7 @@
       "current_count": 15,
       "review_count": 5,
       "duration_minutes": 20,
-      "status": "planned"
+      "status": "customer_testing"
     },
     {
       "id": "n5w8_week_06",
@@ -118,7 +120,7 @@
       "current_count": 16,
       "review_count": 4,
       "duration_minutes": 20,
-      "status": "planned"
+      "status": "customer_testing"
     },
     {
       "id": "n5w8_week_07",
@@ -133,7 +135,7 @@
       "current_count": 15,
       "review_count": 5,
       "duration_minutes": 20,
-      "status": "planned"
+      "status": "customer_testing"
     },
     {
       "id": "n5w8_week_08",
@@ -148,7 +150,7 @@
       "current_count": 16,
       "review_count": 4,
       "duration_minutes": 20,
-      "status": "planned"
+      "status": "customer_testing"
     },
     {
       "id": "n5w8_final",
@@ -163,7 +165,9 @@
       "current_count": 50,
       "review_count": 0,
       "duration_minutes": 50,
-      "status": "planned",
+      "status": "customer_testing",
+      "fixed_form": false,
+      "uses_existing_approved_pool": true,
       "weekly_allocation": [8, 6, 8, 6, 5, 6, 5, 6]
     }
   ]

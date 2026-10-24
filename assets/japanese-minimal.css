@@ -716,6 +716,8 @@ body[data-page="home"] .n5-visual-card > img {
 
 .status-pill,
 .status-pill.preview,
+.status-pill.customer_testing,
+.status-pill.customer_testing_with_trial_items,
 .lesson-status,
 .dimension-chip,
 .evidence-status,

@@ -9,6 +9,24 @@
   const sessionKey = "wkl_n5_8week_preview_session_v1";
   const lessonStateKey = "wkl_n5_8week_preview_lesson_state_v1";
   const catStateKey = "wkl_n5_8week_preview_cat_state_v1";
+  const assessmentStateKey = "wkl_n5_8week_preview_assessment_state_v1";
+  const assessmentDefinitions = Object.freeze({
+    n5w8_week_01: Object.freeze({ kind: "weekly", sequence: 1, label: "第 1 週", lessonLabel: "L1–L3", lessonStart: 1, lessonEnd: 3, patternCount: 15, questionCount: 20, durationMinutes: 20, currentCount: 20, reviewCount: 0, trialItemCount: 8 }),
+    n5w8_week_02: Object.freeze({ kind: "weekly", sequence: 2, label: "第 2 週", lessonLabel: "L4–L6", lessonStart: 4, lessonEnd: 6, patternCount: 12, questionCount: 20, durationMinutes: 20, currentCount: 16, reviewCount: 4, trialItemCount: 0 }),
+    n5w8_week_03: Object.freeze({ kind: "weekly", sequence: 3, label: "第 3 週", lessonLabel: "L7–L9", lessonStart: 7, lessonEnd: 9, patternCount: 15, questionCount: 20, durationMinutes: 20, currentCount: 16, reviewCount: 4, trialItemCount: 0 }),
+    n5w8_week_04: Object.freeze({ kind: "weekly", sequence: 4, label: "第 4 週", lessonLabel: "L10–L12", lessonStart: 10, lessonEnd: 12, patternCount: 11, questionCount: 20, durationMinutes: 20, currentCount: 16, reviewCount: 4, trialItemCount: 0 }),
+    n5w8_week_05: Object.freeze({ kind: "weekly", sequence: 5, label: "第 5 週", lessonLabel: "L13–L15", lessonStart: 13, lessonEnd: 15, patternCount: 10, questionCount: 20, durationMinutes: 20, currentCount: 15, reviewCount: 5, trialItemCount: 0 }),
+    n5w8_week_06: Object.freeze({ kind: "weekly", sequence: 6, label: "第 6 週", lessonLabel: "L16–L18", lessonStart: 16, lessonEnd: 18, patternCount: 12, questionCount: 20, durationMinutes: 20, currentCount: 16, reviewCount: 4, trialItemCount: 0 }),
+    n5w8_week_07: Object.freeze({ kind: "weekly", sequence: 7, label: "第 7 週", lessonLabel: "L19–L21", lessonStart: 19, lessonEnd: 21, patternCount: 10, questionCount: 20, durationMinutes: 20, currentCount: 15, reviewCount: 5, trialItemCount: 0 }),
+    n5w8_week_08: Object.freeze({ kind: "weekly", sequence: 8, label: "第 8 週", lessonLabel: "L22–L25", lessonStart: 22, lessonEnd: 25, patternCount: 12, questionCount: 20, durationMinutes: 20, currentCount: 16, reviewCount: 4, trialItemCount: 0 }),
+    n5w8_final: Object.freeze({ kind: "final", sequence: 9, label: "期末測驗", lessonLabel: "L1–L25 綜合", lessonStart: 1, lessonEnd: 25, patternCount: 97, questionCount: 50, durationMinutes: 50, currentCount: 50, reviewCount: 0, trialItemCount: 0 })
+  });
+  const assessmentLayers = Object.freeze([
+    Object.freeze({ code: "K", label: "知識", itemType: "single_choice" }),
+    Object.freeze({ code: "U", label: "理解", itemType: "cloze_choice" }),
+    Object.freeze({ code: "A", label: "應用", itemType: "jlpt_star_choice" })
+  ]);
+  let assessmentSessionSequence = 0;
   const expiresAt = () => new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString();
   const isoNow = () => new Date().toISOString();
 
@@ -173,6 +191,365 @@
     };
   }
 
+  function publicAssessment(assessmentId) {
+    const definition = assessmentDefinitions[assessmentId];
+    if (!definition) return null;
+    return {
+      id: assessmentId,
+      kind: definition.kind,
+      sequence: definition.sequence,
+      label: definition.label,
+      lessonLabel: definition.lessonLabel,
+      lessonStart: definition.lessonStart,
+      lessonEnd: definition.lessonEnd,
+      patternCount: definition.patternCount,
+      questionCount: definition.questionCount,
+      durationMinutes: definition.durationMinutes,
+      ...(definition.kind === "weekly"
+        ? { currentCount: definition.currentCount, reviewCount: definition.reviewCount }
+        : { weeklyAllocation: [8, 6, 8, 6, 5, 6, 5, 6] })
+    };
+  }
+
+  function readAssessmentSessions() {
+    const stored = readJson(localStorage.getItem(assessmentStateKey), {});
+    return stored && !Array.isArray(stored) ? stored : {};
+  }
+
+  function writeAssessmentSessions(sessions) {
+    localStorage.setItem(assessmentStateKey, JSON.stringify(sessions));
+  }
+
+  function pruneAssessmentSessions(sessions) {
+    const now = Date.now();
+    for (const [sessionId, session] of Object.entries(sessions)) {
+      if (!session || Date.parse(session.expiresAt || "") <= now) delete sessions[sessionId];
+    }
+    const ordered = Object.values(sessions).sort((left, right) => (
+      Number(right.createdAt) - Number(left.createdAt)
+    ));
+    for (const session of ordered.slice(12)) delete sessions[session.sessionId];
+    return sessions;
+  }
+
+  function assessmentOptionToken(sessionId, ordinal, label) {
+    return `${sessionId}.q${ordinal}.o${label}`;
+  }
+
+  function assessmentCorrectIndex(assessmentId, ordinal) {
+    const definition = assessmentDefinitions[assessmentId];
+    return (ordinal + definition.sequence - 2) % 4;
+  }
+
+  function assessmentLayer(ordinal) {
+    return assessmentLayers[(ordinal - 1) % assessmentLayers.length];
+  }
+
+  function syntheticAssessmentOptions(session, ordinal) {
+    return ["A", "B", "C", "D"].map((label, index) => ({
+      optionToken: assessmentOptionToken(session.sessionId, ordinal, label),
+      label,
+      text: `合成示意選項 ${ordinal}-${index + 1}`
+    }));
+  }
+
+  function syntheticAssessmentDisplay(ordinal, layer) {
+    if (layer.code !== "A") {
+      return {
+        kind: "choice",
+        stem: `合成${layer.label}題 ${String(ordinal).padStart(2, "0")}：請選出最適合的介面測試答案。`
+      };
+    }
+    return {
+      kind: "jlpt_star",
+      contextJapanese: `合成排序題 ${String(ordinal).padStart(2, "0")}`,
+      contextBefore: "これは",
+      contextAfter: "表示テストです。",
+      blankFrame: "──　──　★　──",
+      leadingText: "合成",
+      trailingText: "表示",
+      starPosition: 3
+    };
+  }
+
+  function syntheticAssessmentItem(session, ordinal) {
+    const definition = assessmentDefinitions[session.assessmentId];
+    const layer = assessmentLayer(ordinal);
+    return {
+      itemToken: `${session.sessionId}.q${ordinal}`,
+      itemType: layer.itemType,
+      instruction: layer.code === "A"
+        ? "請選出最適合放在 ★ 位置的答案。"
+        : "請選出最適合的答案。",
+      ordinal,
+      totalItems: definition.questionCount,
+      display: syntheticAssessmentDisplay(ordinal, layer),
+      options: syntheticAssessmentOptions(session, ordinal)
+    };
+  }
+
+  function syntheticAssessmentItems(session) {
+    const total = assessmentDefinitions[session.assessmentId].questionCount;
+    return Array.from({ length: total }, (_, index) => (
+      syntheticAssessmentItem(session, index + 1)
+    ));
+  }
+
+  function assessmentContent(assessmentId) {
+    const definition = assessmentDefinitions[assessmentId];
+    return {
+      contentStatus: definition.trialItemCount
+        ? "testing_with_trial_items"
+        : "testing_approved_content",
+      approvedItemCount: definition.questionCount - definition.trialItemCount,
+      trialItemCount: definition.trialItemCount,
+      includesTrialItems: definition.trialItemCount > 0,
+      testingOnly: true,
+      synthetic: true
+    };
+  }
+
+  function assessmentProgress(session) {
+    const total = assessmentDefinitions[session.assessmentId].questionCount;
+    const answered = session.complete ? total : 0;
+    return { answered, total, remaining: total - answered, complete: session.complete === true };
+  }
+
+  function assessmentEnvelope(session, { includeReceipt = false, includeItems = false } = {}) {
+    return {
+      schemaVersion: "wkl-n5-weekly-preview-session-v1",
+      sessionId: session.sessionId,
+      assessmentId: session.assessmentId,
+      assessment: publicAssessment(session.assessmentId),
+      kind: assessmentDefinitions[session.assessmentId].kind,
+      mode: "synthetic_public_preview",
+      progress: assessmentProgress(session),
+      complete: session.complete === true,
+      expiresAt: session.expiresAt,
+      ...(includeReceipt ? { receipt: session.receipt } : {}),
+      ...(!session.complete && includeItems
+        ? {
+            content: assessmentContent(session.assessmentId),
+            policy: {
+              immediateFeedback: false,
+              serverAuthoritativeScoring: false,
+              submissionMode: "batch_once",
+              totalItems: assessmentDefinitions[session.assessmentId].questionCount,
+              formalAssessment: false,
+              contributesToCat: false,
+              synthetic: true
+            },
+            items: syntheticAssessmentItems(session)
+          }
+        : {}),
+      ...(session.complete ? { result: syntheticAssessmentResult(session) } : {})
+    };
+  }
+
+  function requestHeader(init, name) {
+    const headers = init?.headers;
+    if (!headers) return "";
+    if (typeof headers.get === "function") return String(headers.get(name) || "");
+    if (Array.isArray(headers)) {
+      const match = headers.find(([key]) => String(key).toLowerCase() === name.toLowerCase());
+      return String(match?.[1] || "");
+    }
+    const match = Object.entries(headers).find(([key]) => (
+      key.toLowerCase() === name.toLowerCase()
+    ));
+    return String(match?.[1] || "");
+  }
+
+  function assessmentSession(sessionId, receipt) {
+    const sessions = pruneAssessmentSessions(readAssessmentSessions());
+    writeAssessmentSessions(sessions);
+    const session = sessions[sessionId];
+    if (!session) return { response: json({ error: "weekly_session_not_found", message: "找不到這次合成測驗，或測驗已逾時。" }, 404) };
+    if (!receipt || receipt !== session.receipt) {
+      return { response: json({ error: "invalid_weekly_receipt", message: "測驗續答憑證不正確。" }, 403) };
+    }
+    return { session, sessions };
+  }
+
+  function createAssessmentSession(assessmentId) {
+    const definition = assessmentDefinitions[assessmentId];
+    if (!definition) {
+      return json({ error: "weekly_assessment_not_found", message: "找不到指定的週測或期末測驗。" }, 404);
+    }
+    assessmentSessionSequence += 1;
+    const nonce = `${Date.now().toString(36)}-${assessmentSessionSequence.toString(36)}`;
+    const session = {
+      sessionId: `preview-assessment-${assessmentId}-${nonce}`,
+      receipt: `preview-assessment-receipt-${nonce}`,
+      assessmentId,
+      createdAt: Date.now(),
+      expiresAt: expiresAt(),
+      complete: false,
+      responses: []
+    };
+    const sessions = pruneAssessmentSessions(readAssessmentSessions());
+    sessions[session.sessionId] = session;
+    writeAssessmentSessions(sessions);
+    return json(assessmentEnvelope(session, { includeReceipt: true, includeItems: true }), 201);
+  }
+
+  function assessmentEvidence(records, predicate) {
+    const matching = records.filter(predicate);
+    const correct = matching.filter(record => record.isCorrect).length;
+    return {
+      asked: matching.length,
+      correct,
+      accuracy: matching.length ? Math.round((correct / matching.length) * 100) : null,
+      formalMastery: false,
+      catEvidence: false
+    };
+  }
+
+  function assessmentReviewRecord(session, item, response) {
+    const definition = assessmentDefinitions[session.assessmentId];
+    const layer = assessmentLayer(item.ordinal);
+    const correctIndex = assessmentCorrectIndex(session.assessmentId, item.ordinal);
+    const correctOption = item.options[correctIndex];
+    const selectedOption = item.options.find(option => option.optionToken === response.optionToken);
+    const isTrial = item.ordinal <= definition.trialItemCount;
+    const options = item.options.map((option, index) => ({
+      label: option.label,
+      text: option.text,
+      isSelected: option.optionToken === response.optionToken,
+      isCorrect: index === correctIndex,
+      ...(layer.code === "A" ? {} : {
+        explanation: index === correctIndex
+          ? "這是合成題的示意正解，用來確認詳解排版。"
+          : "這是合成干擾選項，僅供測試錯項解析的呈現。"
+      })
+    }));
+    const lessonSpan = Math.max(1, definition.lessonEnd - definition.lessonStart + 1);
+    const lessonNumber = definition.lessonStart + ((item.ordinal - 1) % lessonSpan);
+    return {
+      ordinal: item.ordinal,
+      lesson: `L${lessonNumber}`,
+      lessonNumber,
+      selectionScope: definition.kind === "final"
+        ? `week_${String(((item.ordinal - 1) % 8) + 1).padStart(2, "0")}`
+        : item.ordinal <= definition.currentCount ? "current" : "spiral_review",
+      itemType: item.itemType,
+      layerCode: layer.code,
+      layerLabel: layer.label,
+      pattern: `合成句型預覽 ${String(item.ordinal).padStart(2, "0")}`,
+      contentStatus: isTrial ? "trial_qa_candidate" : "approved",
+      testingOnly: true,
+      isCorrect: selectedOption.optionToken === correctOption.optionToken,
+      instruction: item.instruction,
+      display: item.display,
+      options,
+      selectedAnswer: { label: selectedOption.label, text: selectedOption.text },
+      correctAnswer: { label: correctOption.label, text: correctOption.text },
+      correctFullSentence: `合成完整正解 ${String(item.ordinal).padStart(2, "0")}（僅供介面測試）。`,
+      correctTranslationZh: "此內容是合成示意文，不來自正式題庫或教材。",
+      correctReason: layer.code === "A"
+        ? "依合成詞塊的示意順序排列，用來確認排序題詳解版面。"
+        : "這是合成題的示意正解；內容只用來驗收結果與錯題詳解介面。",
+      ...(layer.code === "A" ? {
+        correctOrder: ["合成詞塊一", "合成詞塊二", "合成詞塊三", "合成詞塊四"]
+      } : {})
+    };
+  }
+
+  function syntheticAssessmentResult(session) {
+    const items = syntheticAssessmentItems(session);
+    const responseByItem = new Map(session.responses.map(response => [response.itemToken, response]));
+    const records = items.map(item => assessmentReviewRecord(
+      session,
+      item,
+      responseByItem.get(item.itemToken)
+    ));
+    const correct = records.filter(record => record.isCorrect).length;
+    const approvedEvidence = assessmentEvidence(records, record => record.contentStatus === "approved");
+    const trialEvidence = assessmentEvidence(records, record => record.contentStatus !== "approved");
+    const dimensions = Object.fromEntries(assessmentLayers.map(layer => [
+      layer.code,
+      assessmentEvidence(records, record => record.layerCode === layer.code)
+    ]));
+    return {
+      assessmentId: session.assessmentId,
+      kind: assessmentDefinitions[session.assessmentId].kind,
+      label: assessmentDefinitions[session.assessmentId].label,
+      mode: "synthetic_public_preview",
+      contentStatus: trialEvidence.asked ? "testing_with_trial_items" : "testing_approved_content",
+      evidenceClass: trialEvidence.asked ? "mixed_testing" : "approved_content_testing",
+      testingOnly: true,
+      formalAssessment: false,
+      formalMastery: false,
+      catEvidence: false,
+      score: {
+        correct,
+        total: records.length,
+        percent: Math.round((correct / records.length) * 100)
+      },
+      overallPractice: {
+        asked: records.length,
+        correct,
+        accuracy: Math.round((correct / records.length) * 100)
+      },
+      wrongCount: records.length - correct,
+      approvedEvidence,
+      trialEvidence,
+      dimensions,
+      reviewItems: records,
+      notice: trialEvidence.asked
+        ? `公開測試站的合成驗收卷含 ${trialEvidence.asked} 題示意候選題；所有內容皆為合成資料，不納入 CAT。`
+        : "公開測試站使用合成題驗收作答、K／U／A 與詳解介面；不代表正式精熟。"
+    };
+  }
+
+  function submitAssessmentSession(sessionId, init) {
+    const body = requestBody(init);
+    const found = assessmentSession(sessionId, String(body.receipt || ""));
+    if (found.response) return found.response;
+    const { session, sessions } = found;
+    if (session.complete) {
+      return json({ error: "weekly_session_complete", message: "這次測驗已完成，不能再次作答。" }, 409);
+    }
+    const items = syntheticAssessmentItems(session);
+    const itemByToken = new Map(items.map(item => [item.itemToken, item]));
+    if (!Array.isArray(body.responses) || body.responses.length !== items.length) {
+      return json({ error: "incomplete_weekly_submission", message: `交卷時必須一次提交全部 ${items.length} 題作答。` }, 400);
+    }
+    const seen = new Set();
+    const responses = [];
+    for (const response of body.responses) {
+      const item = itemByToken.get(String(response?.itemToken || ""));
+      if (!item || seen.has(item.itemToken)) {
+        return json({ error: "invalid_weekly_item", message: "交卷內容含有不正確或重複的合成題目憑證。" }, 400);
+      }
+      const optionToken = String(response?.optionToken || "");
+      if (!item.options.some(option => option.optionToken === optionToken)) {
+        return json({ error: "invalid_weekly_option", message: "交卷內容含有不正確的合成選項憑證。" }, 400);
+      }
+      seen.add(item.itemToken);
+      responses.push({ itemToken: item.itemToken, optionToken });
+    }
+    session.responses = responses.sort((left, right) => (
+      Number(left.itemToken.match(/\.q(\d+)$/)?.[1]) - Number(right.itemToken.match(/\.q(\d+)$/)?.[1])
+    ));
+    session.complete = true;
+    sessions[sessionId] = session;
+    writeAssessmentSessions(sessions);
+    return json({ ...assessmentEnvelope(session), accepted: true });
+  }
+
+  function resumeAssessmentSession(sessionId, init, { resultOnly = false } = {}) {
+    const receipt = requestHeader(init, "X-N5-Assessment-Receipt");
+    const found = assessmentSession(sessionId, receipt);
+    if (found.response) return found.response;
+    if (resultOnly && !found.session.complete) {
+      return json({ error: "weekly_result_not_ready", message: "完成整份測驗後才能查看結果與詳解。" }, 409);
+    }
+    return json(assessmentEnvelope(found.session, {
+      includeItems: !resultOnly && !found.session.complete
+    }));
+  }
+
   function catState() {
     return readJson(localStorage.getItem(catStateKey), { answered: 0 });
   }
@@ -327,6 +704,30 @@
   }
 
   async function handleApi(pathname, method, init) {
+    const assessmentCreateMatch = pathname.match(/^\/api\/n5-assessments\/(n5w8_(?:week_0[1-8]|final))\/sessions$/);
+    if (assessmentCreateMatch && method === "POST") {
+      return createAssessmentSession(assessmentCreateMatch[1]);
+    }
+
+    const assessmentSubmitMatch = pathname.match(/^\/api\/n5-assessments\/sessions\/([^/]+)\/submit$/);
+    if (assessmentSubmitMatch && method === "POST") {
+      return submitAssessmentSession(decodeURIComponent(assessmentSubmitMatch[1]), init);
+    }
+
+    const assessmentResultMatch = pathname.match(/^\/api\/n5-assessments\/sessions\/([^/]+)\/result$/);
+    if (assessmentResultMatch && method === "GET") {
+      return resumeAssessmentSession(
+        decodeURIComponent(assessmentResultMatch[1]),
+        init,
+        { resultOnly: true }
+      );
+    }
+
+    const assessmentSessionMatch = pathname.match(/^\/api\/n5-assessments\/sessions\/([^/]+)$/);
+    if (assessmentSessionMatch && method === "GET") {
+      return resumeAssessmentSession(decodeURIComponent(assessmentSessionMatch[1]), init);
+    }
+
     if (pathname === "/api/n5-auth/session") {
       if (method === "DELETE") {
         localStorage.removeItem(sessionKey);
